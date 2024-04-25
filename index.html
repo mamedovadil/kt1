@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+
+    <button onclick="addRandomNumber()">Добавить число</button>
+
+    <table id="randomTable">
+        <thead>
+            <tr>
+                <th>Column 1</th>
+                <th>Column 2</th>
+                <th>Column 3</th>
+                <th>Column 4</th>
+                <th>Column 5</th>
+                <th>Column 6</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+
+    <script>
+        
+        function generateRandomNumber() {
+        return Math.floor(Math.random() * 100);
+    }
+
+    function addRandomNumber() {
+        var randomNumber = generateRandomNumber();
+        var tableBody = document.getElementById('randomTable').getElementsByTagName('tbody')[0];
+        var rowCount = tableBody.rows.length;
+        var currentRow = tableBody.rows[rowCount - 1];
+        var cellCount = currentRow.cells.length;
+        if (cellCount >= 6) {
+            rowCount++;
+            currentRow = tableBody.insertRow(rowCount - 1);
+        }
+        var cell = currentRow.insertCell(cellCount);
+        cell.textContent = randomNumber;
+        if (randomNumber >= 50) {
+            cell.classList.add('orange');
+        }
+    }
+        function generateRandomNumbers() {
+            var numbers = [];
+            for (var i = 0; i < 30; i++) {
+                numbers.push(Math.floor(Math.random() * 100));
+            }
+            return numbers;
+        }
+    
+        function fillTable(numbers) {
+            var tableBody = document.getElementById('randomTable').getElementsByTagName('tbody')[0];
+            var rowCount = 0;
+            var row = tableBody.insertRow(rowCount);
+            for (var i = 0; i < numbers.length; i++) {
+                if (i % 6 === 0 && i !== 0) {
+                    rowCount++;
+                    row = tableBody.insertRow(rowCount);
+                }
+                var cell = row.insertCell(i % 6);
+                cell.textContent = numbers[i];
+                if (numbers[i] >= 50) {
+                    cell.classList.add('orange');
+                }
+            }
+        }
+    
+        var randomNumbers = generateRandomNumbers();
+        fillTable(randomNumbers);
+    </script>
+</body>
+</html>
